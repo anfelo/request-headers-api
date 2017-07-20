@@ -9,9 +9,9 @@ app.use(jsonParser());
 app.get('/', function(req,res,next){
 	const { headers } = req;
 	const userHeaders = {
-		ipaddress: headers['x-forwarded-for'],
-		language: headers['accept-language'],
-		sofware: headers['user-agent']
+		ipaddress: headers['x-forwarded-for'].split(',')[0],
+		language: headers['accept-language'].split(',')[0],
+		software: headers['user-agent'].match(/\(([^\)]+)\)/)[1]
 	}
 	res.json(userHeaders);
 });
